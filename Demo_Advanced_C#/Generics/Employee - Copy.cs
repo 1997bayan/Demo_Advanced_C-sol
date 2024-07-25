@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Demo_Advanced_C_.Generics
 {
-    internal class EmployeeClass
+    internal class EmployeeClass : IComparable<EmployeeClass>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public double Salary { get; set; }
 
 
         public override string ToString()
         {
-            return $"{Id} :: {Name} :: {Salary}";
+            return $"({Id} :: {Name} :: {Salary})";
 
         }
 
@@ -34,5 +34,38 @@ namespace Demo_Advanced_C_.Generics
            return HashCode.Combine(Id.GetHashCode() , Name.GetHashCode() , Salary.GetHashCode());
         }
 
+        public int CompareTo(object? obj)
+        {
+            //compare based on salary
+            //  EmployeeClass? passedEmployee = (EmployeeClass?)obj; //Unsafe and MAY THROW exception 
+            #region Is conditional Operator
+            // Is operator will return True in 2 cases:
+            // 1- if obj is emplpyeeClass
+            // 2- if obj is an Object inherit from EmployeeClass
+            //if (obj is EmployeeClass) 
+            //{
+            //    return this.Salary.CompareTo((EmployeeClass)obj);
+            
+            //}
+            //return 1;
+            #endregion
+            #region As casting Operator
+
+            EmployeeClass? employeePassed = obj as EmployeeClass;
+            // Casting will succeed in 2 cases :
+            // 1- if obj is emplpyeeClass
+            // 2- if obj is an Object inherit from EmployeeClass
+
+            return this.Salary.CompareTo(employeePassed?.Salary);
+
+
+            #endregion
+
+        }
+
+        public int CompareTo(EmployeeClass? other)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

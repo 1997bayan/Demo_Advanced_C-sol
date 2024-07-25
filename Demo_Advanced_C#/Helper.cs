@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Demo_Advanced_C_
 {
-    internal class Helper<T>
+    internal class Helper<T> where T : IComparable<T>
     {
         #region Non generics 
         //public static void SWAP(ref int x, ref int y)
@@ -45,6 +45,26 @@ namespace Demo_Advanced_C_
         //        }
         //    }
         //    return -1;
+
+
+
+
+        //public static void BubbleSort(int[] array)
+        //{
+        //    for (int i = 0; i < array.Length; i++)
+        //    {
+        //        for (int j = 0; j < array.Length - i - 1; j++)
+        //        {
+        //            if (array[j] > array[j + 1])
+        //            {
+        //                Helper<int>.SWAP(ref array[j], ref array[j + 1]);
+
+        //            }
+
+        //        }
+
+        //    }
+        //}
         #endregion
 
         #region Generics
@@ -74,16 +94,37 @@ namespace Demo_Advanced_C_
 
 
 
+
+        public static void BubbleSort(T[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array.Length - i - 1; j++)
+                {
+                    if (array[j].CompareTo( array[j + 1])==1)
+                    {
+                        Helper<T>.SWAP(ref array[j], ref array[j + 1]);
+
+                    }
+
+                }
+
+            }
+        }
+
+
+
         #endregion
 
 
+
+
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
 }
